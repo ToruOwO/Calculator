@@ -25,14 +25,24 @@ int number(){
 //掛け算と割り算の実装
 //優先度は＋ーより高いので、先にtermとして計算しておきます
 int term(){
-	int a = number();
+	int a = factor(); //カッコがあれば、カッコの中身を先に計算する
 	while(cur < s.length() && (s[cur] == '*' || s[cur] == '/')){
 		char sign = s[cur++];
-		int b = number();
+		int b = factor();
 		if(sign == '*') a *= b;
 		else a /= b;
 	}
 	return a;
+}
+
+int expression();
+
+int factor(){
+	if(s[cur] != '(') return number();
+	cur++; int n = expression(); //カッコの中は必ずexpressionである
+	assert(s[cur] == ')');
+	cur += 1;
+	return n;
 }
 
 //足し算と引き算の実装
