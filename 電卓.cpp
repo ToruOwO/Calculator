@@ -22,14 +22,25 @@ int number(){
 	return n;
 }
 
+int term(){
+	int a = number();
+	while(cur < s.length() && (s[cur] == '*' || s[cur] == '/')){
+		char sign = s[cur++];
+		int b = number();
+		if(sign == '*') a *= b;
+		else a /= b;
+	}
+	return a;
+}
+
 //足し算と引き算の実装
 int expression(){
-	int sum = number();
+	int sum = term();
 	while(s[cur] == '+' || s[cur] == '-'){
-		char op = s[cur];
+		char sign = s[cur];
 		cur += 1;
-		int b = number();
-		if(op == '+') sum += b;
+		int b = term();
+		if(sign == '+') sum += b;
 		else sum -= b;
 	}
 
