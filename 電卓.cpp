@@ -5,6 +5,7 @@
 using namespace std;
 
 size_t cur = 0;
+string s;
 
 //文字の数字への変換
 int digit(){
@@ -32,8 +33,8 @@ int expression(){
 }
 
 int main(){
-	string s;
-	cin << string;
+	cin >> s;
 	int a = expression();
 	cout << a << endl;
+	return 0;
 }
