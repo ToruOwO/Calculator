@@ -1,7 +1,7 @@
 #include<iostream>
-#include<cassert>
-#include<cctype>
-#include<cmath>
+#include<cassert> //assert
+#include<cctype> //isdigit
+#include<cmath> //powを使って"^"の機能を追加したい…
 using namespace std;
 
 size_t cur = 0;
@@ -22,6 +22,8 @@ int number(){
 	return n;
 }
 
+//掛け算と割り算の実装
+//優先度は＋ーより高いので、先にtermとして計算しておきます
 int term(){
 	int a = number();
 	while(cur < s.length() && (s[cur] == '*' || s[cur] == '/')){
@@ -35,7 +37,7 @@ int term(){
 
 //足し算と引き算の実装
 int expression(){
-	int sum = term();
+	int sum = term();　//掛け算と割り算（もしあれば）のreturn値を使う
 	while(s[cur] == '+' || s[cur] == '-'){
 		char sign = s[cur];
 		cur += 1;
