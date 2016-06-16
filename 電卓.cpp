@@ -36,29 +36,40 @@ double number(){
 	return n;
 }
 
-double factor();
-
-//掛け算と割り算の実装
-//優先度は＋ーより高いので、先にtermとして計算しておきます
-double term(){
-	double a = factor(); //カッコがあれば、カッコの中身を先に計算する
-	while(cur < s.length() && (s[cur] == '*' || s[cur] == '/')){
-		char sign = s[cur++];
-		double b = factor();
-		if(sign == '*') a *= b;
-		else a /= b;
-	}
-	return a;
-}
 
 double expression();
 
+//カッコ
 double factor(){
 	if(s[cur] != '(') return number();
 	cur++; double n = expression(); //カッコの中は必ずexpressionである
 	assert(s[cur] == ')');
 	cur += 1;
 	return n;
+}
+
+//べき乗
+double power(){
+	double a = factor();
+	if(cur < s.length() && s[cur] == '^'){
+		cur++;
+		double b = factor();
+		a = pow(a,b);
+	}
+	return a;
+}
+
+//掛け算と割り算の実装
+//優先度は＋ーより高いので、先にtermとして計算しておきます
+double term(){
+	double a = power(); //カッコがあれば、カッコの中身を先に計算する
+	while(cur < s.length() && (s[cur] == '*' || s[cur] == '/')){
+		char sign = s[cur++];
+		double b = power();
+		if(sign == '*') a *= b;
+		else a /= b;
+	}
+	return a;
 }
 
 //足し算と引き算の実装
