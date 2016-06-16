@@ -24,12 +24,16 @@ int number(){
 
 //足し算と引き算の実装
 int expression(){
-	int a = number();
-	char op = s[cur];
-	cur += 1;
-	int b = number();
-	assert(op == '+');
-	return a + b;
+	int sum = number();
+	while(s[cur] == '+' || s[cur] == '-'){
+		char op = s[cur];
+		cur += 1;
+		int b = number();
+		if(op == '+') sum += b;
+		else sum -= b;
+	}
+
+	return sum;
 }
 
 int main(){
